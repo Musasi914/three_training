@@ -20,11 +20,7 @@ export class Camera {
     this.config = this.experience.config;
 
     this.instance = this.setInstance();
-
-    this.controls = new OrbitControls(
-      this.instance,
-      this.experience.canvasWrapper
-    );
+    this.controls = this.setOrbitControls();
   }
 
   private setInstance() {
@@ -39,7 +35,17 @@ export class Camera {
     return camera;
   }
 
+  private setOrbitControls() {
+    const controls = new OrbitControls(
+      this.instance,
+      this.experience.canvasWrapper
+    );
+    controls.enableDamping = true;
+    return controls;
+  }
+
   resize() {
+    this.config = this.experience.config;
     this.instance.aspect = this.config.width / this.config.height;
     this.instance.updateProjectionMatrix();
   }

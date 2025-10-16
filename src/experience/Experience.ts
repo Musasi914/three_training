@@ -7,6 +7,7 @@ import { World } from "./world/World";
 import { GUI } from "lil-gui";
 import { Resource } from "./base/Resource";
 import { sources } from "./source";
+import { Environment } from "./world/Environment";
 
 export default class Experience {
   static instance: Experience;
@@ -27,6 +28,7 @@ export default class Experience {
   camera: Camera;
   renderer: Renderer;
   resource: Resource;
+  environment: Environment;
   world: World;
 
   constructor(canvasWrapper: HTMLDivElement) {
@@ -44,6 +46,7 @@ export default class Experience {
     this.renderer = new Renderer();
     this.resource = new Resource(sources);
 
+    this.environment = new Environment();
     this.world = new World();
 
     this.size.on("resize", this.resize.bind(this));
@@ -69,5 +72,6 @@ export default class Experience {
   private update() {
     this.camera.update();
     this.renderer.update();
+    this.world.update();
   }
 }

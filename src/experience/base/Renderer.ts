@@ -26,10 +26,13 @@ export class Renderer {
     renderer.setPixelRatio(this.config.pixelRatio);
     renderer.setSize(this.config.width, this.config.height);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     return renderer;
   }
 
   resize() {
+    this.config = this.experience.config;
     this.instance.setPixelRatio(this.config.pixelRatio);
     this.instance.setSize(this.config.width, this.config.height);
   }
