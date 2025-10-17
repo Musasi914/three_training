@@ -1,4 +1,5 @@
 import { Example1 } from "../../examples/1";
+import { Example2 } from "../../examples/2.animation-sphere";
 import Experience from "../Experience";
 import * as THREE from "three";
 export class World {
@@ -6,7 +7,7 @@ export class World {
   scene: Experience["scene"];
   gui: Experience["gui"];
   resource: Experience["resource"];
-  example1: Example1 | null = null;
+  example2: Example2 | null = null;
   constructor() {
     this.experience = Experience.getInstance();
     this.scene = this.experience.scene;
@@ -14,11 +15,12 @@ export class World {
 
     this.resource = this.experience.resource;
     this.resource.on("ready", () => {
-      this.example1 = new Example1();
+      this.example2 = new Example2();
     });
   }
 
   update() {
-    this.example1?.mixer.update(this.experience.time.delta);
+    // this.example1?.mixer.update(this.experience.time.delta);
+    this.example2?.update();
   }
 }

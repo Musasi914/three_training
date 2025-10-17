@@ -5,7 +5,9 @@ import { OrbitControls } from "three/examples/jsm/Addons.js";
 const FOV = 45;
 const NEAR = 1;
 const FAR = 200;
-const CAMERA_POSITION: [number, number, number] = [0, 5, 5];
+const CAMERA_POSITION: [number, number, number] = [
+  0.9728517749133652, 1.1044765132727201, 0.7316689528482836,
+];
 
 export class Camera {
   instance: THREE.PerspectiveCamera;
