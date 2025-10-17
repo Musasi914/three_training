@@ -6,8 +6,8 @@ export type Source = {
 
 export const sources: Source[] = [
   {
-    name: "tokyoModel",
-    path: "/models/LittlestTokyo.glb",
+    name: "model",
+    path: "/models/Xbot.glb",
     type: "model",
   },
 ];
