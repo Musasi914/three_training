@@ -5,9 +5,9 @@ export type Source = {
 };
 
 export const sources: Source[] = [
-  {
-    name: "model",
-    path: "/models/kira.glb",
-    type: "model",
-  },
+  // {
+  //   name: "model",
+  //   path: "/models/kira.glb",
+  //   type: "model",
+  // },
 ];

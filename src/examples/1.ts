@@ -1,6 +1,6 @@
 import gsap from "gsap";
 import Experience from "../experience/Experience";
-import * as THREE from "three";
+import * as THREE from "three/webgpu";
 import type { Controller } from "lil-gui";
 
 export class Example1 {

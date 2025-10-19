@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import * as THREE from "three/webgpu";
 import Experience from "../Experience";
 
 export class Environment {
@@ -11,9 +11,9 @@ export class Environment {
     this.scene = this.experience.scene;
     this.renderer = this.experience.renderer;
 
-    this.setBackground();
-    this.setAmbientLight();
-    this.setDirectionalLight();
+    // this.setBackground();
+    // this.setAmbientLight();
+    // this.setDirectionalLight();
   }
 
   private setBackground() {

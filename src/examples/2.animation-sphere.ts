@@ -1,10 +1,7 @@
-import * as THREE from "three";
+import * as THREE from "three/webgpu";
 import Experience from "../experience/Experience";
 import { TransformControls, type GLTF } from "three/examples/jsm/Addons.js";
-import {
-  CCDIKHelper,
-  CCDIKSolver,
-} from "three/addons/animation/CCDIKSolver.js";
+import { CCDIKSolver } from "three/addons/animation/CCDIKSolver.js";
 
 export class Example2 {
   experience: Experience;
@@ -31,8 +28,6 @@ export class Example2 {
     this.ccdikSolver = this.setCCDIKSolver();
 
     this.setTransformControls();
-
-    console.log(this.OOI.Kira_Shirt_left);
   }
 
   private setModel() {
@@ -95,7 +90,6 @@ export class Example2 {
         ],
       },
     ];
-    console.log(skelton);
     const solver = new CCDIKSolver(skelton as THREE.SkinnedMesh, iks);
 
     return solver;
