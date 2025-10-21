@@ -38,9 +38,9 @@ export class Renderer {
   }
 
   update() {
-    // this.instance.renderAsync(
-    //   this.experience.scene,
-    //   this.experience.camera.instance
-    // );
+    this.instance.renderAsync(
+      this.experience.scene,
+      this.experience.camera.instance
+    );
   }
 }

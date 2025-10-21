@@ -1,19 +1,19 @@
 import * as THREE from "three/webgpu";
 import Experience from "../Experience";
-import { MapControls, OrbitControls } from "three/examples/jsm/Addons.js";
+import { OrbitControls } from "three/examples/jsm/Addons.js";
 
 const FOV = 50;
 const NEAR = 1;
-const FAR = 10000;
-const CAMERA_POSITION: [number, number, number] = [0, 0, 2500];
+const FAR = 100;
+const CAMERA_POSITION: [number, number, number] = [0, 2, 5];
 
 export class Camera {
   instance: THREE.PerspectiveCamera;
   experience: Experience;
   scene: Experience["scene"];
   config: Experience["config"];
-  // controls: OrbitControls;
-  controls: MapControls;
+  controls: OrbitControls;
+  // controls: MapControls;
 
   constructor() {
     this.experience = Experience.getInstance();
@@ -27,7 +27,7 @@ export class Camera {
   private setInstance() {
     const camera = new THREE.PerspectiveCamera(
       FOV,
-      this.config.width / (this.config.height * 0.5),
+      this.config.width / this.config.height,
       NEAR,
       FAR
     );
@@ -45,19 +45,19 @@ export class Camera {
     return controls;
   }
 
-  private setMapControls() {
-    const controls = new MapControls(
-      this.instance,
-      this.experience.canvasWrapper
-    );
-    controls.maxPolarAngle = Math.PI / 2;
-    controls.enableDamping = true;
-    return controls;
-  }
+  // private setMapControls() {
+  //   const controls = new MapControls(
+  //     this.instance,
+  //     this.experience.canvasWrapper
+  //   );
+  //   controls.maxPolarAngle = Math.PI / 2;
+  //   controls.enableDamping = true;
+  //   return controls;
+  // }
 
   resize() {
     this.config = this.experience.config;
-    this.instance.aspect = this.config.width / (this.config.height * 0.5);
+    this.instance.aspect = this.config.width / this.config.height;
     this.instance.updateProjectionMatrix();
   }
 

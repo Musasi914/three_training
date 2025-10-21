@@ -108,12 +108,14 @@ export class Example4 {
   }
 
   private updateCamera() {
+    // camera top
     this.cameraPerspectiveHelper.visible = false;
     this.renderer.setClearColor(0x000000, 1);
     this.renderer.setScissor(0, 0, this.config.width, this.config.height / 2);
     this.renderer.setViewport(0, 0, this.config.width, this.config.height / 2);
     this.renderer.renderAsync(this.scene, this.cameraPerspective);
 
+    // camera bottom
     this.cameraPerspectiveHelper.visible = true;
     this.renderer.setClearColor(0x111111, 1);
     this.renderer.setScissor(
