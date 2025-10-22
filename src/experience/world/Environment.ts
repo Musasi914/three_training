@@ -1,5 +1,5 @@
 import Experience from "../Experience";
-
+import * as THREE from "three/webgpu";
 export class Environment {
   experience: Experience;
   scene: Experience["scene"];
@@ -11,22 +11,22 @@ export class Environment {
     this.renderer = this.experience.renderer;
 
     // this.setBackground();
-    // this.setAmbientLight();
-    // this.setDirectionalLight();
+    this.setAmbientLight();
+    this.setDirectionalLight();
   }
 
   // private setBackground() {
   //   this.scene.background = new THREE.Color(0xbfe3dd);
   // }
 
-  // private setAmbientLight() {
-  //   const ambientLight = new THREE.AmbientLight(0xffffff, 2);
-  //   this.scene.add(ambientLight);
-  // }
+  private setAmbientLight() {
+    const ambientLight = new THREE.AmbientLight(0x777777);
+    this.scene.add(ambientLight);
+  }
 
-  // private setDirectionalLight() {
-  //   const directionalLight = new THREE.DirectionalLight(0xffffff, 4);
-  //   directionalLight.position.set(1, 1, 1);
-  //   this.scene.add(directionalLight);
-  // }
+  private setDirectionalLight() {
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 4);
+    directionalLight.position.set(10, 10, 10);
+    this.scene.add(directionalLight);
+  }
 }

@@ -1,13 +1,13 @@
 export type Source = {
   name: string;
-  type: "cubeTexture" | "model" | "texture";
+  type: "cubeTexture" | "model" | "texture" | "font";
   path: string[] | string;
 };
 
 export const sources: Source[] = [
   {
-    name: "model",
-    path: "/models/sit.glb",
-    type: "model",
+    name: "font",
+    path: "/font/helvetiker_regular.typeface.json",
+    type: "font",
   },
 ];

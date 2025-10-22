@@ -19,6 +19,7 @@ export class Renderer {
     const renderer = new THREE.WebGPURenderer({
       alpha: false,
       antialias: this.config.pixelRatio === 1,
+      logarithmicDepthBuffer: true,
     });
 
     this.canvasWrapper.appendChild(renderer.domElement);

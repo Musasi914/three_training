@@ -6,6 +6,7 @@ import {
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import { CubeTexture, CubeTextureLoader, Texture, TextureLoader } from "three";
 import type { Source } from "../source";
+import { Font, FontLoader } from "three/examples/jsm/Addons.js";
 
 /**
  * リソースの読み込みを管理する
@@ -16,6 +17,7 @@ export class Resource extends EventEmitter {
     gltfLoader: GLTFLoader;
     textureLoader: TextureLoader;
     cubeTextureLoader: CubeTextureLoader;
+    fontLoader: FontLoader;
   };
   items: Record<string, any>;
   sources: Source[];
@@ -44,6 +46,7 @@ export class Resource extends EventEmitter {
       gltfLoader,
       textureLoader: new TextureLoader(),
       cubeTextureLoader: new CubeTextureLoader(),
+      fontLoader: new FontLoader(),
     };
   }
 
@@ -71,13 +74,22 @@ export class Resource extends EventEmitter {
           );
           break;
 
+        case "font":
+          this.loaders.fontLoader.load(source.path as string, (file) => {
+            this.sourceLoaded(source, file);
+          });
+          break;
+
         default:
           break;
       }
     }
   }
 
-  private sourceLoaded(source: Source, item: GLTF | Texture | CubeTexture) {
+  private sourceLoaded(
+    source: Source,
+    item: GLTF | Texture | CubeTexture | Font
+  ) {
     this.items[source.name] = item;
     this.loaded++;
     if (this.loaded === this.allSources) {
