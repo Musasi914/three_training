@@ -3,10 +3,11 @@ import Experience from "../experience/Experience";
 import * as THREE from "three";
 
 const vertexShader = `
+  uniform float progress;
   varying vec2 vUv;
   void main() {
-    vUv = uv;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    vUv = uv;
   }
 `;
 const fragmentShader = `
@@ -156,11 +157,15 @@ export class Book {
   private createPages() {
     const leftPageGeometry = new THREE.PlaneGeometry(
       this.bookWidth,
-      this.bookHeight
+      this.bookHeight,
+      16,
+      16
     );
     const rightPageGeometry = new THREE.PlaneGeometry(
       this.bookWidth - this.coverWidth / 2,
-      this.bookHeight
+      this.bookHeight,
+      16,
+      16
     );
     for (let i = 0; i < this.pageCount; i++) {
       if (i <= this.pageCount / 2) {
@@ -230,6 +235,12 @@ export class Book {
         delay: this.isOpen ? 0 : i * 0.05,
         duration: this.isOpen ? 0.85 : 1,
         ease: "power2.inOut",
+        onUpdate: () => {
+          (
+            (leftPagePivot.children[0] as THREE.Mesh)
+              .material as THREE.ShaderMaterial
+          ).uniforms.progress.value = this.animationProgress.value;
+        },
       });
     }
   }

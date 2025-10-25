@@ -1,7 +1,6 @@
 import Experience from "../Experience";
 // import { Example6 } from "../../examples/6.clip";
 import { Example7 } from "../../examples/7.bookOpen";
-import { ShaderBook } from "../../examples/8.shaderBook";
 
 export class World {
   experience: Experience;
