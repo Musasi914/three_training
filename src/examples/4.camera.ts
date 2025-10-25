@@ -1,12 +1,12 @@
 import Experience from "../experience/Experience";
-import * as THREE from "three/webgpu";
+import * as THREE from "three";
 
 export class Example4 {
   experience: Experience;
   config: Experience["config"];
   scene: Experience["scene"];
   resource: Experience["resource"];
-  renderer: THREE.WebGPURenderer;
+  renderer: THREE.WebGLRenderer;
 
   cameraPerspective: THREE.PerspectiveCamera;
   cameraPerspectiveHelper: THREE.CameraHelper;
@@ -113,7 +113,7 @@ export class Example4 {
     this.renderer.setClearColor(0x000000, 1);
     this.renderer.setScissor(0, 0, this.config.width, this.config.height / 2);
     this.renderer.setViewport(0, 0, this.config.width, this.config.height / 2);
-    this.renderer.renderAsync(this.scene, this.cameraPerspective);
+    this.renderer.render(this.scene, this.cameraPerspective);
 
     // camera bottom
     this.cameraPerspectiveHelper.visible = true;
@@ -130,6 +130,6 @@ export class Example4 {
       this.config.width,
       this.config.height / 2
     );
-    this.renderer.renderAsync(this.scene, this.experience.camera.instance);
+    this.renderer.render(this.scene, this.experience.camera.instance);
   }
 }

@@ -4,10 +4,4 @@ export type Source = {
   path: string[] | string;
 };
 
-export const sources: Source[] = [
-  {
-    name: "font",
-    path: "/font/helvetiker_regular.typeface.json",
-    type: "font",
-  },
-];
+export const sources: Source[] = [];

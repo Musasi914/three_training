@@ -1,8 +1,8 @@
 import Experience from "../Experience";
-import * as THREE from "three/webgpu";
+import * as THREE from "three";
 
 export class Renderer {
-  instance: THREE.WebGPURenderer;
+  instance: THREE.WebGLRenderer;
   experience: Experience;
   canvasWrapper: Experience["canvasWrapper"];
   config: Experience["config"];
@@ -16,10 +16,9 @@ export class Renderer {
   }
 
   private setInstance() {
-    const renderer = new THREE.WebGPURenderer({
+    const renderer = new THREE.WebGLRenderer({
       alpha: false,
       antialias: this.config.pixelRatio === 1,
-      logarithmicDepthBuffer: true,
     });
 
     this.canvasWrapper.appendChild(renderer.domElement);
@@ -39,7 +38,7 @@ export class Renderer {
   }
 
   update() {
-    this.instance.renderAsync(
+    this.instance.render(
       this.experience.scene,
       this.experience.camera.instance
     );

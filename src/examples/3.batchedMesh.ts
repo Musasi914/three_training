@@ -1,5 +1,5 @@
 import Experience from "../experience/Experience";
-import * as THREE from "three/webgpu";
+import * as THREE from "three";
 import { diffuseColor, directionToColor, normalView } from "three/tsl";
 
 export class Example3 {

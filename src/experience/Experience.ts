@@ -2,7 +2,7 @@ import { Camera } from "./base/Camera";
 import { Renderer } from "./base/Renderer";
 import { Size } from "./utils/Size";
 import { Time } from "./utils/Time";
-import * as THREE from "three/webgpu";
+import * as THREE from "three";
 import { World } from "./world/World";
 import { GUI } from "lil-gui";
 import { Resource } from "./base/Resource";

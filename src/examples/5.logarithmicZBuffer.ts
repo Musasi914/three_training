@@ -1,6 +1,6 @@
 import { Font, TextGeometry } from "three/examples/jsm/Addons.js";
 import Experience from "../experience/Experience";
-import * as THREE from "three/webgpu";
+import * as THREE from "three";
 
 const mouse = [0.5, 0.5];
 const labeldata = [

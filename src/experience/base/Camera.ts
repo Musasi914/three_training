@@ -1,18 +1,18 @@
-import * as THREE from "three/webgpu";
+import * as THREE from "three";
 import Experience from "../Experience";
 import { OrbitControls } from "three/examples/jsm/Addons.js";
 
 const FOV = 50;
-const NEAR = 1e-6;
-const FAR = 1e27;
-const CAMERA_POSITION: [number, number, number] = [0, 0, 0.00001];
+const NEAR = 0.1;
+const FAR = 100;
+const CAMERA_POSITION: [number, number, number] = [0, 0, 5];
 
 export class Camera {
   instance: THREE.PerspectiveCamera;
   experience: Experience;
   scene: Experience["scene"];
   config: Experience["config"];
-  // controls: OrbitControls;
+  controls: OrbitControls;
   // controls: MapControls;
 
   constructor() {
@@ -21,7 +21,7 @@ export class Camera {
     this.config = this.experience.config;
 
     this.instance = this.setInstance();
-    // this.controls = this.setOrbitControls();
+    this.controls = this.setOrbitControls();
   }
 
   private setInstance() {
@@ -32,6 +32,7 @@ export class Camera {
       FAR
     );
     camera.position.set(...CAMERA_POSITION);
+    camera.lookAt(0, 0, 0); // 原点（本の位置）を向く
     this.scene.add(camera);
     return camera;
   }
@@ -62,6 +63,6 @@ export class Camera {
   }
 
   update() {
-    // this.controls.update();
+    this.controls.update();
   }
 }

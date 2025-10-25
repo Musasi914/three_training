@@ -1,5 +1,5 @@
 import Experience from "../experience/Experience";
-import * as THREE from "three/webgpu";
+import * as THREE from "three";
 import { RoomEnvironment } from "three/examples/jsm/Addons.js";
 
 export class Example1Ex {
