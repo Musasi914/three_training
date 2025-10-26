@@ -39,7 +39,7 @@ export class Book {
   coverRight: THREE.Group;
   coverFront: THREE.Group;
   coverFrontAndLeft: THREE.Group;
-  coverMaterial: THREE.MeshBasicMaterial;
+  coverMaterial: THREE.MeshLambertMaterial;
 
   // page
   pageCount = 12;
@@ -65,7 +65,7 @@ export class Book {
     this.coverRight = new THREE.Group();
     this.coverFront = new THREE.Group();
     this.coverFrontAndLeft = new THREE.Group();
-    this.coverMaterial = new THREE.MeshBasicMaterial({ color: 0xffddbb });
+    this.coverMaterial = new THREE.MeshLambertMaterial({ color: 0xffddbb });
     this.createCover();
 
     // page
@@ -96,6 +96,7 @@ export class Book {
       this.coverWidth
     );
     const coverFront = new THREE.Mesh(coverFrontGeometry, this.coverMaterial);
+    coverFront.castShadow = true;
     this.coverFront.add(coverFront);
     this.coverFrontAndLeft.add(this.coverFront);
     this.book.add(this.coverFrontAndLeft);
@@ -107,6 +108,7 @@ export class Book {
       this.coverThickness
     );
     const coverLeft = new THREE.Mesh(coverLeftGeometry, this.coverMaterial);
+    coverLeft.castShadow = true;
     coverLeft.position.set(this.bookWidth / 2, 0, 0);
     this.coverLeft.add(coverLeft);
     this.coverLeft.position.set(
@@ -124,6 +126,7 @@ export class Book {
       this.coverThickness
     );
     const coverRight = new THREE.Mesh(coverRightGeometry, this.coverMaterial);
+    coverRight.castShadow = true;
     coverRight.position.set(
       this.bookWidth / 2,
       0,
@@ -174,6 +177,7 @@ export class Book {
           leftPageGeometry,
           this.leftPageMaterial
         );
+        leftOnePage.castShadow = true;
         leftOnePage.position.x = this.bookWidth / 2;
         const leftOnePageGroup = new THREE.Group();
         leftOnePageGroup.add(leftOnePage);
@@ -185,6 +189,7 @@ export class Book {
           rightPageGeometry,
           this.rightPageMaterial
         );
+        rightPage.castShadow = true;
         rightPage.position.x = this.bookWidth / 2 - this.coverWidth / 4;
         this.rightPages.add(rightPage);
       }

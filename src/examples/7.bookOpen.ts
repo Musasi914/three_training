@@ -11,7 +11,7 @@ export class Example7 {
   mouse: THREE.Vector2;
 
   newBook: Book;
-
+  wall: THREE.Mesh;
   constructor() {
     this.experience = Experience.getInstance();
     this.scene = this.experience.scene;
@@ -27,6 +27,8 @@ export class Example7 {
     this.setupEventListeners();
 
     this.newBook = new Book();
+
+    this.wall = this.createWall();
   }
 
   private setupEventListeners() {
@@ -52,5 +54,15 @@ export class Example7 {
     if (intersects.length > 0) {
       this.newBook.animate();
     }
+  }
+
+  private createWall() {
+    const wallGeometry = new THREE.PlaneGeometry(10, 10);
+    const wallMaterial = new THREE.MeshLambertMaterial({ color: 0xaaaaaa });
+    const wall = new THREE.Mesh(wallGeometry, wallMaterial);
+    wall.position.z = -0.1;
+    wall.receiveShadow = true;
+    this.scene.add(wall);
+    return wall;
   }
 }
