@@ -21,7 +21,7 @@ export class Environment {
   // }
 
   private setAmbientLight() {
-    const ambientLight = new THREE.AmbientLight(0xcccccc, 2);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 2);
     this.scene.add(ambientLight);
   }
 

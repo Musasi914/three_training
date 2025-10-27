@@ -19,11 +19,12 @@ export class Renderer {
     const renderer = new THREE.WebGLRenderer({
       alpha: false,
       antialias: this.config.pixelRatio === 1,
+      powerPreference: "high-performance",
     });
 
     this.canvasWrapper.appendChild(renderer.domElement);
     renderer.setClearColor(0x242424, 1);
-    renderer.setPixelRatio(this.config.pixelRatio);
+    renderer.setPixelRatio(1.5);
     renderer.setSize(this.config.width, this.config.height);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.shadowMap.enabled = true;

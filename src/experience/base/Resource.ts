@@ -7,7 +7,7 @@ import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import { CubeTexture, CubeTextureLoader, Texture, TextureLoader } from "three";
 import type { Source } from "../source";
 import { Font, FontLoader } from "three/examples/jsm/Addons.js";
-
+import * as THREE from "three";
 /**
  * リソースの読み込みを管理する
  * triggerは "ready"
@@ -61,6 +61,7 @@ export class Resource extends EventEmitter {
 
         case "texture":
           this.loaders.textureLoader.load(source.path as string, (file) => {
+            file.colorSpace = THREE.SRGBColorSpace;
             this.sourceLoaded(source, file);
           });
           break;

@@ -8,6 +8,7 @@ import { GUI } from "lil-gui";
 import { Resource } from "./base/Resource";
 import { sources } from "./source";
 import { Environment } from "./world/Environment";
+import Stats from "three/examples/jsm/libs/stats.module.js";
 
 export default class Experience {
   static instance: Experience;
@@ -24,6 +25,7 @@ export default class Experience {
   size: Size;
   time: Time;
   gui: GUI;
+  stats: Stats;
   scene: THREE.Scene;
   camera: Camera;
   renderer: Renderer;
@@ -38,6 +40,9 @@ export default class Experience {
     this.size = new Size();
     this.time = new Time();
     this.gui = new GUI();
+    this.stats = new Stats();
+    this.stats.showPanel(0);
+    document.body.appendChild(this.stats.dom);
 
     this.config = this.setConfig();
 
@@ -73,5 +78,6 @@ export default class Experience {
     this.camera.update();
     this.renderer.update();
     this.world.update();
+    this.stats.update();
   }
 }
