@@ -76,7 +76,7 @@ export default class Experience {
 
   private update() {
     this.camera.update();
-    this.renderer.update();
+    // this.renderer.update();
     this.world.update();
     this.stats.update();
   }

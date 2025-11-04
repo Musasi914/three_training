@@ -19,7 +19,6 @@ export class Example8 {
   intersection = {
     point: new THREE.Vector3(),
     normal: new THREE.Vector3(),
-    intersects: false,
   };
   position = new THREE.Vector3();
   orientation = new THREE.Euler();
@@ -51,7 +50,7 @@ export class Example8 {
 
     window.addEventListener("pointerup", (e) => {
       this.checkIntersection(e.clientX, e.clientY);
-      if (this.intersection.intersects) {
+      if (this.intersects.length > 0) {
         this.shoot();
       }
     });
@@ -89,7 +88,7 @@ export class Example8 {
 
   private setModel() {
     const mesh = new THREE.Mesh(
-      new THREE.SphereGeometry(10, 1024, 1024),
+      new THREE.TorusGeometry(10, 4, 16, 64),
       new THREE.MeshPhongMaterial({ color: 0x555555 })
     );
     this.scene.add(mesh);
@@ -108,66 +107,108 @@ export class Example8 {
     this.mouse.x = (x / this.config.width) * 2 - 1;
     this.mouse.y = -(y / this.config.height) * 2 + 1;
     this.raycaster.setFromCamera(this.mouse, this.camera.instance);
-    this.intersects = this.raycaster.intersectObjects(
-      [this.mesh],
-      true,
-      this.intersects
-    );
+    this.intersects = this.raycaster.intersectObjects([this.mesh]);
     if (this.intersects.length > 0) {
-      if (!this.intersects[0].face) return;
-      console.log("first");
-
       const point = this.intersects[0].point;
-      this.mouseHelper.position.copy(point);
-      this.intersection.point.copy(point);
+      const normal = this.intersects[0].normal;
+      this.position.copy(point);
 
-      const normalMatrix = new THREE.Matrix3().getNormalMatrix(
-        this.mesh.matrixWorld
-      );
-
-      const normal = this.intersects[0].face.normal.clone();
-      normal?.applyNormalMatrix(normalMatrix);
       normal?.multiplyScalar(10);
-      normal?.add(this.intersects[0].point);
+      normal?.add(point);
 
-      this.mouseHelper.lookAt(normal);
-      this.intersection.normal.copy(this.intersects[0].face.normal);
+      this.mouseHelper.position.copy(point);
+      this.mouseHelper.lookAt(normal!);
 
-      const positions = this.line.geometry.attributes.position;
-      positions.setXYZ(0, point.x, point.y, point.z);
-      positions.setXYZ(1, normal.x, normal.y, normal.z);
-      positions.needsUpdate = true;
-
-      this.intersection.intersects = true;
-      this.intersects.length = 0;
-    } else {
-      this.intersection.intersects = false;
+      // // INSERT_YOUR_CODE
+      // const positions = this.line.geometry.attributes.position;
+      // positions.setXYZ(0, point.x, point.y, point.z);
+      // positions.setXYZ(1, normal.x, normal.y, normal.z);
+      // positions.needsUpdate = true;
     }
   }
 
   private shoot() {
-    console.log("shoot");
-    this.position.copy(this.intersection.point);
-    this.orientation.copy(this.mouseHelper.rotation);
+    const orientation = this.orientation.copy(this.mouseHelper.rotation);
+    orientation.z = Math.random() * Math.PI * 2;
 
-    this.orientation.z = Math.random() * Math.PI * 2;
-
+    const geometry = new DecalGeometry(
+      this.mesh,
+      this.position,
+      this.orientation,
+      new THREE.Vector3(10, 10, 10)
+    );
     const material = this.decalMaterial.clone();
     material.color.setHex(Math.random() * 0xffffff);
 
-    const mesh = new THREE.Mesh(
-      new DecalGeometry(
-        this.mesh,
-        this.position,
-        this.orientation,
-        new THREE.Vector3(10, 10, 10)
-      ),
-      material
-    );
+    const mesh = new THREE.Mesh(geometry, material);
     mesh.renderOrder = this.decals.length;
-
+    this.scene.add(mesh);
     this.decals.push(mesh);
-
-    this.mesh.attach(mesh);
   }
+
+  // private checkIntersection(x: number, y: number) {
+  //   this.mouse.x = (x / this.config.width) * 2 - 1;
+  //   this.mouse.y = -(y / this.config.height) * 2 + 1;
+  //   this.raycaster.setFromCamera(this.mouse, this.camera.instance);
+  //   this.intersects = this.raycaster.intersectObjects(
+  //     [this.mesh],
+  //     true,
+  //     this.intersects
+  //   );
+  //   if (this.intersects.length > 0) {
+  //     if (!this.intersects[0].face) return;
+
+  //     const point = this.intersects[0].point;
+  //     this.mouseHelper.position.copy(point);
+  //     this.intersection.point.copy(point);
+
+  //     const normalMatrix = new THREE.Matrix3().getNormalMatrix(
+  //       this.mesh.matrixWorld
+  //     );
+
+  //     const normal = this.intersects[0].face.normal.clone();
+  //     normal?.applyNormalMatrix(normalMatrix);
+  //     normal?.multiplyScalar(10);
+  //     normal?.add(this.intersects[0].point);
+
+  //     this.mouseHelper.lookAt(normal);
+  //     this.intersection.normal.copy(this.intersects[0].face.normal);
+
+  //     const positions = this.line.geometry.attributes.position;
+  //     positions.setXYZ(0, point.x, point.y, point.z);
+  //     positions.setXYZ(1, normal.x, normal.y, normal.z);
+  //     positions.needsUpdate = true;
+
+  //     this.intersection.intersects = true;
+  //     this.intersects.length = 0;
+  //   } else {
+  //     this.intersection.intersects = false;
+  //   }
+  // }
+
+  // private shoot() {
+  //   console.log("shoot");
+  //   this.position.copy(this.intersection.point);
+  //   this.orientation.copy(this.mouseHelper.rotation);
+
+  //   this.orientation.z = Math.random() * Math.PI * 2;
+
+  //   const material = this.decalMaterial.clone();
+  //   material.color.setHex(Math.random() * 0xffffff);
+
+  //   const mesh = new THREE.Mesh(
+  //     new DecalGeometry(
+  //       this.mesh,
+  //       this.position,
+  //       this.orientation,
+  //       new THREE.Vector3(10, 10, 10)
+  //     ),
+  //     material
+  //   );
+  //   mesh.renderOrder = this.decals.length;
+
+  //   this.decals.push(mesh);
+
+  //   this.scene.add(mesh);
+  // }
 }
